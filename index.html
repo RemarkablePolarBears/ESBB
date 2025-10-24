@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色資料展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #menu {
+            width: 15%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        #content {
+            width: 85%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #menu h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        #menu a {
+            display: block;
+            padding: 10px;
+            color: #0366d6;
+            text-decoration: none;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        #menu a:hover {
+            background-color: #ddd;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .welcome-message {
+            padding: 20px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            #menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 250px;
+                height: 100%;
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+
+            #menu.active {
+                transform: translateX(0);
+            }
+
+            #content {
+                width: 100%;
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                z-index: 1100;
+            }
+
+            #menu-toggle:checked ~ #menu {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" aria-label="Toggle menu">
+    <label for="menu-toggle" class="hamburger">☰</label>
+    
+    <nav id="menu" aria-labelledby="menu-heading">
+        <h3 id="menu-heading">選單</h3>
+        <a href="character_markmap.html" target="content-frame">Character Markmap 建立角色流程概念圖</a>
+        <a href="Character_Miller_obsidian.html" target="content-frame">舉例 Character Sarah Miller</a>
+        <a href="Character_Williams.html" target="content-frame">舉例 Character Dr. Emma Williams</a>
+        <a href="Character_JackChen.html" target="content-frame">舉例 Character Jack Chen</a>
+    </nav>
+    
+    <div id="content">
+        <div id="welcome-message" class="welcome-message">
+            <h2>歡迎選擇角色資料</h2>
+            <p>請從左側選單中選擇角色以查看其詳細資料。</p>
+        </div>
+        <iframe id="content-frame" name="content-frame" style="display:none;"></iframe>
+    </div>
+
+    <script>
+        // Hide welcome message when iframe is loaded with content
+        document.getElementById('content-frame').addEventListener('load', function() {
+            if (this.contentDocument && this.contentDocument.location.href !== 'about:blank') {
+                document.getElementById('welcome-message').style.display = 'none';
+                this.style.display = 'block';
+            }
+        });
+
+        // Add click event to all menu links
+        const links = document.querySelectorAll('#menu a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                // Close menu on mobile after selection
+                if (window.innerWidth <= 768) {
+                    document.getElementById('menu-toggle').checked = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
