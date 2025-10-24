@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>角色資料展示</title>
+    <title>角色資料展示 / Character Information Display</title>
     <style>
         * {
             margin: 0;
@@ -112,26 +112,36 @@
     </style>
 </head>
 <body>
-    <input type="checkbox" id="menu-toggle" aria-label="Toggle menu">
+    <input type="checkbox" id="menu-toggle" aria-label="切換選單 / Toggle menu">
     <label for="menu-toggle" class="hamburger">☰</label>
     
     <nav id="menu" aria-labelledby="menu-heading">
-        <h3 id="menu-heading">選單</h3>
-        <a href="character_markmap.html" target="content-frame">Character Markmap 建立角色流程概念圖</a>
-        <a href="Character_Miller_obsidian.html" target="content-frame">舉例 Character Sarah Miller</a>
-        <a href="Character_Williams.html" target="content-frame">舉例 Character Dr. Emma Williams</a>
-        <a href="Character_JackChen.html" target="content-frame">舉例 Character Jack Chen</a>
+        <h3 id="menu-heading">選單 / Menu</h3>
+        <a href="character_markmap.html" target="content-frame">
+            Character Markmap 建立角色流程概念圖 / Character Markmap – Concept Map for Character Creation
+        </a>
+        <a href="Character_Miller_obsidian.html" target="content-frame">
+            舉例 Character Sarah Miller / Example: Character Sarah Miller
+        </a>
+        <a href="Character_Williams.html" target="content-frame">
+            舉例 Character Dr. Emma Williams / Example: Character Dr. Emma Williams
+        </a>
+        <a href="Character_JackChen.html" target="content-frame">
+            舉例 Character Jack Chen / Example: Character Jack Chen
+        </a>
     </nav>
     
     <div id="content">
         <div id="welcome-message" class="welcome-message">
-            <h2>歡迎選擇角色資料</h2>
-            <p>請從左側選單中選擇角色以查看其詳細資料。</p>
+            <h2>歡迎選擇角色資料 / Welcome to Select Character Information</h2>
+            <p>請從左側選單中選擇角色以查看其詳細資料。<br>
+            Please select a character from the menu on the left to view detailed information.</p>
         </div>
         <iframe id="content-frame" name="content-frame" style="display:none;"></iframe>
     </div>
 
     <script>
+        // 當 iframe 載入內容後隱藏歡迎訊息
         // Hide welcome message when iframe is loaded with content
         document.getElementById('content-frame').addEventListener('load', function() {
             if (this.contentDocument && this.contentDocument.location.href !== 'about:blank') {
@@ -140,10 +150,12 @@
             }
         });
 
+        // 為所有選單連結加入點擊事件
         // Add click event to all menu links
         const links = document.querySelectorAll('#menu a');
         links.forEach(link => {
             link.addEventListener('click', function() {
+                // 在手機上點擊後自動關閉選單
                 // Close menu on mobile after selection
                 if (window.innerWidth <= 768) {
                     document.getElementById('menu-toggle').checked = false;
